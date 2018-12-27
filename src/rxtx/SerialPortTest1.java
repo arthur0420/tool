@@ -81,6 +81,7 @@ public class SerialPortTest1 implements Runnable, SerialPortEventListener {
     // 实现接口SerialPortEventListener中的方法 读取从串口中接收的数据
     @Override
     public void serialEvent(SerialPortEvent event) {
+    	System.err.println(event);
         switch (event.getEventType()) {
         case SerialPortEvent.BI: // 通讯中断
         case SerialPortEvent.OE: // 溢位错误

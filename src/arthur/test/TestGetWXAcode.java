@@ -15,25 +15,21 @@ public class TestGetWXAcode {
 		String type = "client_credential";
 		String appid = "wxe69e36171867e9c1";
 		String secret = "2fa67efc674feb9c77217f78d914af02";
-//		appid=wxe69e36171867e9c1
-//				secret=2fa67efc674feb9c77217f78d914af02
-		// {"access_token":"15_Nt9l_wizBuVh7t4GamDmpVNfUuXHFx9zEb3nJTscmELdvuitLDyAsDgtWWot3nxYsbJCyK1rupwhWLpgIfBpM7iQhJV9wqdiVB3beFUtmvYD-DjXed1BXJxFMEiUH1Bf5c09rD3zC4njfNM_PYDgAHAWFK","expires_in":7200}
-//		String token =  "15_Nt9l_wizBuVh7t4GamDmpVNfUuXHFx9zEb3nJTscmELdvuitLDyAsDgtWWot3nxYsbJCyK1rupwhWLpgIfBpM7iQhJV9wqdiVB3beFUtmvYD-DjXed1BXJxFMEiUH1Bf5c09rD3zC4njfNM_PYDgAHAWFK";
-//		String url = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token="+token;
-//		JSONObject param = new JSONObject();
-////		param.put("token", token);
-//		param.put("scene", "28");
-//		param.put("page","pages/clientb/clientb");
-//		param.put("width",280);
-//		param.put("auto_color", true);
-//		
-//		ByteArrayOutputStream post = UHttpClient.post(url,param.toString());
-//		File f = new File("d://qrcode.jpg");
-//		FileOutputStream fos = new FileOutputStream(f);
-//		fos.write(post.toByteArray());
-//		fos.flush();
-//		fos.close();
-		getToken();
+		String token = "15_N6vHzdV9x2ZYKNcMul9gp5leKUyvhRPBQkLZAAsac99zL0kA9hr1zwil8YktSfVapwQfE7u4lxWVx_v6XLKyf8grSeEPi834UyQsSI4Kib-rofCCs-VJc6IrG-8ZO7yfFNTMaaOwi13vtyP8SLCjADAOHY";	
+		String sendTemplateUrl  = "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token="+token;
+		JSONObject param = new JSONObject();
+		//
+		param.put("touser", "oEOlG46vIXwOzCtiIs2XAYz_3W9k");
+		param.put("template_id", "K-N4xzKw7r54Ca9uc3ws5vTy6asjma_1gdUrxnlxP4Y");
+		param.put("form_id", "1541658795427");
+		
+		
+		ByteArrayOutputStream postByJsonStr = UHttpClient.postByJsonStr(sendTemplateUrl, param.toString());
+		String string = new String(postByJsonStr.toByteArray());
+		
+		System.out.println(string);
+		
+//		getToken();
 		
 	}
 	
@@ -48,7 +44,9 @@ public class TestGetWXAcode {
 		
 		String string = UHttpClient.get(tokenurl);
 		JSONObject s = JSONObject.fromObject(string);
-		System.out.println(s.getInt("expires_in"));
+		
+		System.out.println(s);
+		
 	}
 	
 }
