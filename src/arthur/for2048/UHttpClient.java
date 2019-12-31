@@ -1,4 +1,4 @@
-package arthur.test;
+package arthur.for2048;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -135,6 +135,11 @@ public class UHttpClient {
 		return r;
 	}
 	public static void main(String[] args) {
+		UHttpClient
+		.init();
+		 String string = UHttpClient
+		.get("http://gio.2czq3eg0.xyz/2048/thread.php?fid-27-page-1.html");
+		System.out.println(string);
 	}
 
 	public static ByteArrayOutputStream postByJsonStr(String url,String param) throws Exception{

@@ -7,6 +7,7 @@ import java.util.List;
 
 public class DeviceControl {
 	
+	static int runindex = 1;
 	private static SerialPortHandler serialPorts = null; // 串口对象
 	private static Object lock = new Object();
 	private byte[] receiveData = null;
@@ -24,6 +25,7 @@ public class DeviceControl {
 		List<byte[]> datalist = new ArrayList();
 			byte rs = (byte) (1);
 			byte[] data = new byte[] {(byte)0xFF,(byte)rs ,(byte)0x01 ,(byte)0x17 ,
+					/*(byte)0x00,(byte)0xfe ,
 					(byte)0x00,(byte)0xfe ,
 					(byte)0x00,(byte)0xfe ,
 					(byte)0x00,(byte)0xfe ,
@@ -32,9 +34,19 @@ public class DeviceControl {
 					(byte)0x00,(byte)0xfe ,
 					(byte)0x00,(byte)0xfe ,
 					(byte)0x00,(byte)0xfe ,
-					(byte)0x00,(byte)0xfe ,
-					(byte)0x00,(byte)0xfe ,
+					(byte)0x00,(byte)0xfe ,*/
+					(byte)0x00,(byte)0x00,
+					(byte)0x00,(byte)0x00 ,
+					(byte)0x00,(byte)0x00 ,
+					(byte)0x00,(byte)0x00 ,
+					(byte)0x00,(byte)0x00 ,
+					(byte)0x00,(byte)0x00 ,
+					(byte)0x00,(byte)0x00 ,
+					(byte)0x00,(byte)0x00 ,
+					(byte)0x00,(byte)0x00 ,
+					(byte)0x00,(byte)0x00 ,
 					(byte)0xFF};
+			data[3+runindex*2] = (byte)0xfe;
 			datalist.add(data);
 		for(int i = 0 ; i<datalist.size();i++) {
 			serialPorts.sendMsg(datalist.get(i));
@@ -49,9 +61,9 @@ public class DeviceControl {
 		}
 	}
 	public static void main(String[] args) {
-		String comName = "ttyS0";
+		String comName = "/dev/ttyS0";
 		if(args!=null && args.length!=0) {
-			comName =args[0];
+			runindex =Integer.parseInt(args[0]);
 		}
 		DeviceControl dc = new DeviceControl(comName);
 		while(true) {
@@ -59,7 +71,6 @@ public class DeviceControl {
 			try {
 				Thread.sleep(1000 * 0xff);
 			} catch (Exception e) {
-				// TODO: handle exception
 			}
 		}
 	}
